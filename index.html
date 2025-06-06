@@ -36,11 +36,12 @@
         .app-container {
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 600px;
-            width: 100%;
+            width: 95%;
+            max-width: 95vw;
+            min-height: 95vh;
         }
 
         .setup-section {
@@ -292,11 +293,11 @@
 
         .bean-o {
             display: inline-block;
-            width: 70px;
-            height: 90px;
+            width: 90px;
+            height: 115px;
             position: relative;
-            top: 12px;
-            margin: 0 6px;
+            top: 15px;
+            margin: 0 8px;
             animation: bounce 2s ease-in-out infinite;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
@@ -771,57 +772,124 @@
 
         /* Mobile Responsive - Fill whole screen */
         @media (max-width: 600px) {
-            body { padding: 3px; min-height: 100vh; }
-            .app-container { padding: 12px 8px; border-radius: 12px; max-height: 98vh; overflow-y: auto; }
-            .app-title { font-size: 4.5em; margin-bottom: 12px; gap: 8px; letter-spacing: 2px; }
-            .bean-o { width: 60px; height: 75px; top: 8px; margin: 0 4px; }
-            .promo-text { font-size: 1.3em; margin-bottom: 18px; padding: 15px; flex-direction: row; gap: 6px; }
-            .camera-container { margin-bottom: 12px; }
-            #video { max-height: 240px; }
-            .controls { flex-direction: column; align-items: center; gap: 10px; margin-bottom: 12px; }
-            button { width: 100%; max-width: 320px; font-size: 1.2em; padding: 20px 35px; min-height: 65px; }
-            .capture-btn { font-size: 1.2em; padding: 22px 22px; min-height: 75px; min-width: auto; max-width: 320px; }
-            .capture-btn .mooky-word { font-size: 1.2em; }
-            .winner-title { font-size: 2.8em; }
-            .winner-message { font-size: 1.4em; padding: 18px; }
+            body { padding: 2px; min-height: 100vh; }
+            .app-container { padding: 10px 8px; border-radius: 12px; width: 98%; min-height: 98vh; }
+            .app-title { font-size: 6em; margin-bottom: 15px; gap: 10px; letter-spacing: 3px; }
+            .bean-o { width: 80px; height: 100px; top: 10px; margin: 0 5px; }
+            .promo-text { font-size: 1.4em; margin-bottom: 20px; padding: 12px; flex-direction: row; gap: 6px; }
+            .camera-container { margin-bottom: 15px; }
+            #video { max-height: 200px; }
+            .controls { flex-direction: column; align-items: center; gap: 12px; margin-bottom: 15px; }
+            button { width: 100%; max-width: 340px; font-size: 1.3em; padding: 22px 38px; min-height: 68px; }
+            .capture-btn { font-size: 1.3em; padding: 25px 25px; min-height: 78px; min-width: auto; max-width: 340px; }
+            .capture-btn .mooky-word { font-size: 1.3em; }
+            .winner-title { font-size: 3.2em; }
+            .winner-message { font-size: 1.6em; padding: 20px; }
             
-            /* Mobile sponsor banner */
-            .sponsor-banner { margin-bottom: 12px; padding: 10px; }
-            .sponsor-content { flex-direction: column; text-align: center; gap: 6px; padding: 12px; }
-            .sponsor-logo { width: 50px; height: 50px; margin: 0 auto; }
-            .sponsor-logo svg { width: 35px; height: 35px; }
-            .sponsor-info { text-align: center; min-width: auto; }
-            .sponsor-header { font-size: 0.8em; }
-            .sponsor-name { font-size: 1.2em; }
-            .sponsor-tagline { font-size: 0.75em; }
-            .sponsor-details { font-size: 0.7em; }
+            /* Mobile sponsor banner - at bottom, smaller */
+            .sponsor-banner { margin-top: 15px; padding: 6px; }
+            .sponsor-content { flex-direction: row; text-align: center; gap: 5px; padding: 6px; }
+            .sponsor-logo { width: 30px; height: 30px; margin: 0; }
+            .sponsor-logo svg { width: 22px; height: 22px; }
+            .sponsor-info { text-align: left; min-width: auto; }
+            .sponsor-header { font-size: 0.6em; }
+            .sponsor-name { font-size: 0.9em; }
+            .sponsor-tagline { font-size: 0.6em; }
+            .sponsor-details { font-size: 0.5em; }
         }
 
         /* iPad/Tablet Responsive - Fill screen portrait */
         @media (min-width: 601px) and (max-width: 1024px) {
-            body { padding: 5px; min-height: 100vh; }
-            .app-container { padding: 18px 12px; max-height: 98vh; overflow-y: auto; }
-            .app-title { font-size: 5.5em; margin-bottom: 18px; }
-            .promo-text { margin-bottom: 22px; font-size: 1.4em; padding: 18px; }
-            .camera-container { margin-bottom: 18px; }
-            #video { max-height: 300px; }
-            .controls { margin-bottom: 12px; }
-            button { font-size: 1.3em; padding: 22px 38px; min-height: 68px; }
-            .capture-btn { padding: 25px 25px; min-height: 78px; font-size: 1.3em; min-width: 350px; }
-            .capture-btn .mooky-word { font-size: 1.25em; }
-            .sponsor-banner { margin-bottom: 18px; padding: 15px; }
-            .sponsor-content { padding: 15px; }
-            .bean-o { width: 75px; height: 95px; }
+            body { 
+                padding: 1px; 
+                min-height: 100vh; 
+                margin: 0;
+            }
+            .app-container { 
+                padding: 15px 10px; 
+                width: 99%; 
+                min-height: 99vh; 
+                margin: 0;
+                border-radius: 8px;
+            }
+            .app-title { 
+                font-size: 12em; 
+                margin-bottom: 25px; 
+                line-height: 0.8;
+            }
+            .promo-text { 
+                margin-bottom: 30px; 
+                font-size: 2.2em; 
+                padding: 25px; 
+            }
+            .camera-container { 
+                margin-bottom: 25px; 
+            }
+            #video { 
+                max-height: 280px; 
+                width: 90%;
+            }
+            .controls { 
+                margin-bottom: 20px; 
+            }
+            button { 
+                font-size: 1.6em; 
+                padding: 30px 50px; 
+                min-height: 80px; 
+            }
+            .capture-btn { 
+                padding: 35px 35px; 
+                min-height: 90px; 
+                font-size: 1.6em; 
+                min-width: 420px; 
+            }
+            .capture-btn .mooky-word { 
+                font-size: 1.4em; 
+            }
+            .bean-o { 
+                width: 120px; 
+                height: 150px; 
+                margin: 0 10px;
+            }
+            
+            /* iPad sponsor banner - at bottom, smaller */
+            .sponsor-banner { 
+                margin-top: 25px; 
+                padding: 10px; 
+            }
+            .sponsor-content { 
+                padding: 10px; 
+            }
+            .sponsor-logo { 
+                width: 40px; 
+                height: 40px; 
+            }
+            .sponsor-logo svg { 
+                width: 30px; 
+                height: 30px; 
+            }
+            .sponsor-header { 
+                font-size: 0.7em; 
+            }
+            .sponsor-name { 
+                font-size: 1.1em; 
+            }
+            .sponsor-tagline { 
+                font-size: 0.7em; 
+            }
+            .sponsor-details { 
+                font-size: 0.6em; 
+            }
         }
 
         /* iPad/Tablet Landscape */
         @media (min-width: 601px) and (max-width: 1024px) and (orientation: landscape) {
-            .app-title { font-size: 4.8em; margin-bottom: 15px; }
-            #video { max-height: 250px; }
-            .promo-text { font-size: 1.2em; padding: 15px; }
-            .sponsor-banner { margin-bottom: 15px; padding: 12px; }
-            button { font-size: 1.2em; padding: 20px 32px; min-height: 62px; }
-            .capture-btn { padding: 22px 22px; min-height: 72px; font-size: 1.2em; }
+            .app-title { font-size: 6.5em; margin-bottom: 18px; }
+            #video { max-height: 180px; }
+            .promo-text { font-size: 1.5em; padding: 15px; }
+            .sponsor-banner { margin-top: 15px; padding: 6px; }
+            button { font-size: 1.3em; padding: 22px 35px; min-height: 66px; }
+            .capture-btn { padding: 25px 25px; min-height: 76px; font-size: 1.3em; }
         }
             .app-container { padding: 15px 10px; border-radius: 10px; }
             .app-title { font-size: 2.8em; gap: 4px; letter-spacing: 1px; }
