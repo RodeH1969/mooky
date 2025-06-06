@@ -393,6 +393,8 @@
         #video {
             width: 100%;
             max-width: 500px;
+            height: auto;
+            max-height: 300px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             background: #f0f0f0;
@@ -453,11 +455,11 @@
         .capture-btn {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
             font-size: 1.1em;
-            padding: 22px 20px;
-            min-height: 70px;
-            min-width: 300px;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            font-weight: 800;
+            padding: 18px 20px;
+            min-height: 60px;
+            min-width: 280px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -465,6 +467,19 @@
             flex-wrap: wrap;
             text-align: center;
             line-height: 1.2;
+            color: white;
+        }
+
+        .capture-btn .mooky-word {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-weight: 900;
+            color: #4169E1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-size: 1.4em;
+            background: rgba(255,255,255,0.9);
+            padding: 2px 6px;
+            border-radius: 6px;
+            margin: 0 2px;
         }
 
         .capture-btn:hover, .capture-btn:focus {
@@ -748,32 +763,54 @@
             }
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive - Fit everything on screen */
         @media (max-width: 600px) {
-            body { padding: 10px; }
-            .app-container { padding: 20px 15px; border-radius: 15px; }
-            .app-title { font-size: 3.8em; margin-bottom: 15px; gap: 8px; letter-spacing: 2px; }
-            .bean-o { width: 50px; height: 65px; top: 8px; margin: 0 4px; }
-            .promo-text { font-size: 0.9em; margin-bottom: 25px; flex-direction: column; gap: 5px; }
-            .controls { flex-direction: column; align-items: center; gap: 12px; }
-            button { width: 100%; max-width: 280px; font-size: 1.1em; padding: 20px 35px; min-height: 55px; }
-            .capture-btn { font-size: 1.0em; padding: 25px 20px; min-height: 65px; min-width: auto; }
-            .winner-title { font-size: 2.5em; }
-            .winner-message { font-size: 1.4em; padding: 20px; }
+            body { padding: 5px; min-height: 100vh; }
+            .app-container { padding: 15px 10px; border-radius: 15px; max-height: 95vh; overflow-y: auto; }
+            .app-title { font-size: 3.2em; margin-bottom: 10px; gap: 6px; letter-spacing: 1px; }
+            .bean-o { width: 45px; height: 58px; top: 6px; margin: 0 3px; }
+            .promo-text { font-size: 0.85em; margin-bottom: 15px; flex-direction: column; gap: 3px; }
+            .camera-container { margin-bottom: 15px; }
+            #video { max-height: 220px; }
+            .controls { flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px; }
+            button { width: 100%; max-width: 260px; font-size: 1.0em; padding: 15px 30px; min-height: 50px; }
+            .capture-btn { font-size: 0.9em; padding: 15px 15px; min-height: 55px; min-width: auto; }
+            .capture-btn .mooky-word { font-size: 1.1em; }
+            .winner-title { font-size: 2.2em; }
+            .winner-message { font-size: 1.2em; padding: 15px; }
             
             /* Mobile sponsor banner */
-            .sponsor-banner { margin-bottom: 20px; padding: 15px; }
-            .sponsor-content { flex-direction: column; text-align: center; gap: 10px; }
-            .sponsor-logo { width: 60px; height: 60px; margin: 0 auto; }
-            .sponsor-logo svg { width: 45px; height: 45px; }
+            .sponsor-banner { margin-bottom: 15px; padding: 12px; }
+            .sponsor-content { flex-direction: column; text-align: center; gap: 8px; }
+            .sponsor-logo { width: 55px; height: 55px; margin: 0 auto; }
+            .sponsor-logo svg { width: 40px; height: 40px; }
             .sponsor-info { text-align: center; min-width: auto; }
-            .sponsor-header { font-size: 1em; }
-            .sponsor-name { font-size: 1.6em; }
-            .sponsor-tagline { font-size: 0.9em; }
-            .sponsor-details { font-size: 0.85em; }
+            .sponsor-header { font-size: 0.9em; }
+            .sponsor-name { font-size: 1.4em; }
+            .sponsor-tagline { font-size: 0.8em; }
+            .sponsor-details { font-size: 0.8em; }
         }
 
-        @media (max-width: 400px) {
+        /* iPad/Tablet Responsive - Portrait mode */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            body { padding: 8px; min-height: 100vh; }
+            .app-container { padding: 20px 15px; max-height: 95vh; overflow-y: auto; }
+            .app-title { font-size: 4.2em; margin-bottom: 15px; }
+            .promo-text { margin-bottom: 20px; }
+            .camera-container { margin-bottom: 20px; }
+            #video { max-height: 280px; }
+            .controls { margin-bottom: 15px; }
+            .capture-btn { padding: 16px 18px; min-height: 58px; font-size: 1.0em; }
+            .capture-btn .mooky-word { font-size: 1.2em; }
+            .sponsor-banner { margin-bottom: 20px; padding: 18px; }
+        }
+
+        /* iPad/Tablet Landscape */
+        @media (min-width: 601px) and (max-width: 1024px) and (orientation: landscape) {
+            .app-title { font-size: 3.8em; margin-bottom: 12px; }
+            #video { max-height: 250px; }
+            .sponsor-banner { margin-bottom: 15px; padding: 15px; }
+        }
             .app-container { padding: 15px 10px; border-radius: 10px; }
             .app-title { font-size: 2.8em; gap: 4px; letter-spacing: 1px; }
             .bean-o { width: 40px; height: 52px; top: 6px; margin: 0 2px; }
@@ -1025,7 +1062,7 @@
         <div class="controls">
             <button id="startBtn">Start Camera</button>
             <button id="captureBtn" class="capture-btn" disabled>
-                📸 Say Mooky & Click!
+                📸 Say <span class="mooky-word">MOOKY</span> & Click!
             </button>
         </div>
         
