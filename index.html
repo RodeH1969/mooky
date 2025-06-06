@@ -734,8 +734,15 @@
             }
         }
 
-        /* Hide cloud setup on mobile */
-        @media (max-width: 768px) {
+        /* Hide cloud setup on mobile and tablets */
+        @media (max-width: 1024px), (pointer: coarse) {
+            .setup-section {
+                display: none;
+            }
+        }
+        
+        /* Specifically hide cloud setup on touch devices */
+        @media (hover: none) and (pointer: coarse) {
             .setup-section {
                 display: none;
             }
@@ -1345,7 +1352,12 @@
             async capturePhoto() {
                 if (!this.stream) return;
                 
-                if (!this.isCloudConnected) {
+                // For coffee shop use - skip cloud check on mobile devices
+                const isMobileDevice = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                                     ('ontouchstart' in window) || 
+                                     (navigator.maxTouchPoints > 0);
+                
+                if (!this.isCloudConnected && !isMobileDevice) {
                     this.showStatus('Please connect to cloud services first!', 'warning');
                     return;
                 }
@@ -1409,26 +1421,48 @@
             }
             
             async uploadToFirebase(blob, timestamp) {
-                this.showStatus('Uploading to cloud storage...', 'info');
+                // Check if actually connected to cloud or if on mobile (demo mode)
+                const isMobileDevice = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                                     ('ontouchstart' in window) || 
+                                     (navigator.maxTouchPoints > 0);
                 
-                // In real implementation:
-                // const filename = `mooky-${timestamp.getTime()}.jpg`;
-                // const storageRef = ref(storage, `customer-photos/${filename}`);
-                // const snapshot = await uploadBytes(storageRef, blob);
-                // return await getDownloadURL(snapshot.ref);
-                
-                await new Promise(resolve => setTimeout(resolve, 800));
-                return `https://firebasestorage.googleapis.com/mooky-photos/${timestamp.getTime()}.jpg`;
+                if (this.isCloudConnected) {
+                    this.showStatus('Uploading to cloud storage...', 'info');
+                    // In real implementation:
+                    // const filename = `mooky-${timestamp.getTime()}.jpg`;
+                    // const storageRef = ref(storage, `customer-photos/${filename}`);
+                    // const snapshot = await uploadBytes(storageRef, blob);
+                    // return await getDownloadURL(snapshot.ref);
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    return `https://firebasestorage.googleapis.com/mooky-photos/${timestamp.getTime()}.jpg`;
+                } else if (isMobileDevice) {
+                    // Demo mode for coffee shop - simulate upload
+                    this.showStatus('Processing photo for coffee shop...', 'info');
+                    await new Promise(resolve => setTimeout(resolve, 400));
+                    return `demo://coffee-shop-photo/${timestamp.getTime()}.jpg`;
+                } else {
+                    return `local://photo/${timestamp.getTime()}.jpg`;
+                }
             }
             
             async analyzeFace(blob) {
-                this.showStatus('Analyzing face with AI...', 'info');
+                const isMobileDevice = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                                     ('ontouchstart' in window) || 
+                                     (navigator.maxTouchPoints > 0);
+                
+                if (this.isCloudConnected) {
+                    this.showStatus('Analyzing face with AI...', 'info');
+                } else if (isMobileDevice) {
+                    this.showStatus('Coffee shop face recognition...', 'info');
+                } else {
+                    this.showStatus('Demo face recognition...', 'info');
+                }
                 
                 await new Promise(resolve => setTimeout(resolve, 600));
                 
                 // For testing: Create one consistent face ID per browser session
                 if (!this.currentTestFaceId) {
-                    this.currentTestFaceId = `test_face_${Date.now()}`;
+                    this.currentTestFaceId = `coffee_customer_${Date.now()}`;
                     console.log('🆕 New face ID created:', this.currentTestFaceId);
                 }
                 
@@ -1440,7 +1474,7 @@
                     faceId = this.currentTestFaceId;
                     console.log('✅ Face MATCHED:', faceId);
                 } else {
-                    faceId = `different_face_${Math.floor(Math.random() * 1000)}`;
+                    faceId = `different_customer_${Math.floor(Math.random() * 1000)}`;
                     console.log('❌ Face NOT matched, new ID:', faceId);
                 }
                 
