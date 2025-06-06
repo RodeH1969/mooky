@@ -1124,7 +1124,6 @@
         </div>
         
         <div class="controls">
-            <button id="startBtn">Start Camera</button>
             <button id="captureBtn" class="capture-btn" disabled>
                 📸 Say <span class="mooky-word">MOOKY</span> & Click!
             </button>
@@ -1299,7 +1298,6 @@
                 this.video = document.getElementById('video');
                 this.canvas = document.getElementById('canvas');
                 this.ctx = this.canvas.getContext('2d');
-                this.startBtn = document.getElementById('startBtn');
                 this.captureBtn = document.getElementById('captureBtn');
                 this.status = document.getElementById('status');
                 this.visitTracker = document.getElementById('visitTracker');
@@ -1319,7 +1317,6 @@
             }
             
             init() {
-                this.startBtn.addEventListener('click', () => this.startCamera());
                 this.captureBtn.addEventListener('click', () => this.capturePhoto());
                 
                 // Admin panel keyboard shortcut (Ctrl+Alt+A)
@@ -1340,6 +1337,9 @@
                     document.getElementById('visionApiKey').value = savedApiKey;
                     this.connectToCloud();
                 }
+                
+                // Auto-start camera when page loads
+                this.startCamera();
             }
             
             async connectToCloud() {
@@ -1479,9 +1479,8 @@
             }
             
             finalizeCamera() {
-                this.startBtn.disabled = true;
                 this.captureBtn.disabled = false;
-                this.showStatus('✅ Camera activated! Ready to take photos. Say Mooky and click the capture button!', 'success');
+                this.showStatus('✅ Camera ready! Say Mooky and click the capture button!', 'success');
             }
             
             async capturePhoto() {
