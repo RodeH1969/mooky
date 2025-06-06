@@ -911,7 +911,7 @@
         }
             .app-container { padding: 15px 10px; border-radius: 10px; }
             .app-title { font-size: 7.8em; gap: 4px; letter-spacing: 1px; }
-            .bean-o { width: 1em; height: 1.28em; top: 0.15em; margin: 0 0.08em; }
+            .bean-o { width: 4em; height: 5.12em; top: 0.15em; margin: 0 0.08em; }
             .promo-text { font-size: 1.6em; margin-bottom: 20px; }
             .coffee-cup { width: 44px; height: 58px; }
             .winner-title { font-size: 2em; }
@@ -1600,8 +1600,8 @@
                     console.log('🆕 New face ID created:', this.currentTestFaceId);
                 }
                 
-                // 85% chance to get the same face ID (simulating face recognition)
-                const shouldMatch = Math.random() < 0.85;
+                // 95% chance to get the same face ID (simulating face recognition)
+                const shouldMatch = Math.random() < 0.95;
                 let faceId;
                 
                 if (shouldMatch) {
