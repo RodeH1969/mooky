@@ -84,4 +84,119 @@
 
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-    import { getStorage, ref, uploadBytes
+    import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDN_iMJC8XoI5zC9AaakbsyEPWHxssewn4",
+      authDomain: "mooky-63b71.firebaseapp.com",
+      projectId: "mooky-63b71",
+      storageBucket: "mooky-63b71.firebasestorage.app",
+      messagingSenderId: "108899345467",
+      appId: "1:108899345467:web:05bb22fa56e24a4375a81e",
+      measurementId: "G-HM9M6NX2CR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+
+    const captureButton = document.getElementById('captureButton');
+    const videoFeed = document.getElementById('videoFeed');
+    const canvas = document.getElementById('canvas');
+    const placeholder = document.getElementById('placeholder');
+    const countdown = document.getElementById('countdown');
+    const flashEffect = document.getElementById('flashEffect');
+    const successText = document.getElementById('successText');
+    const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+    let stream = null;
+
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+        });
+        videoFeed.srcObject = stream;
+        videoFeed.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        canvas.classList.add('hidden');
+      } catch (err) {
+        console.error('Camera access denied:', err);
+        videoFeed.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+      }
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
+    }
+
+    function showSuccess() {
+      console.log('Showing success message at:', new Date().toISOString());
+      if (successText) {
+        successText.textContent = 'Successful Mooky!';
+        successText.classList.remove('hidden');
+        setTimeout(() => successText.classList.add('show'), 10);
+        setTimeout(() => {
+          console.log('Hiding success message at:', new Date().toISOString());
+          successText.classList.remove('show');
+          setTimeout(() => successText.classList.add('hidden'), 300);
+        }, 2000);
+      } else {
+        console.error('successText element not found.');
+      }
+    }
+
+    function captureImage() {
+      canvas.width = videoFeed.videoWidth;
+      canvas.height = videoFeed.videoHeight;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(videoFeed, 0, 0, canvas.width, canvas.height);
+      canvas.classList.add('hidden');
+      flashEffect.classList.add('flash');
+
+      canvas.toBlob((blob) => {
+        const storageRef = ref(storage, 'mooky_photos/' + new Date().toISOString() + '.jpg');
+        uploadBytes(storageRef, blob).then(() => {
+          console.log('Upload successful');
+          showSuccess();
+        }).catch((error) => {
+          console.error('Upload failed', error);
+        });
+      }, 'image/jpeg', 0.95);
+    }
+
+    captureButton.addEventListener('click', async () => {
+      if (!stream) await startCamera();
+      captureButton.disabled = true;
+      captureButton.classList.add('opacity-50');
+      countdown.classList.remove('hidden');
+      countdown.innerText = '2';
+      countdown.classList.add('count-pulse');
+      setTimeout(() => {
+        countdown.innerText = '1';
+        countdown.classList.remove('count-pulse');
+        countdown.classList.add('count-pulse');
+      }, 1000);
+      setTimeout(() => {
+        countdown.classList.remove('count-pulse');
+        countdown.classList.add('hidden');
+        if (stream) {
+          captureImage();
+        } else {
+          flashEffect.classList.add('flash');
+        }
+        setTimeout(() => {
+          flashEffect.classList.remove('flash');
+          captureButton.disabled = false;
+          captureButton.classList.remove('opacity-50');
+        }, 3000);
+      }, 2000);
+    });
+
+    window.addEventListener('unload', stopCamera);
+  </script>
+</body>
+</html>
