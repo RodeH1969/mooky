@@ -170,7 +170,8 @@
       try {
         const location = await getLocation();
         const timestamp = new Date().toISOString();
-        const filename = `mooky_photos/${timestamp}_lat${location.lat}_lng${location.lng}.jpg`;
+        const folder = `lat${location.lat}_lng${location.lng}`;
+        const filename = `mooky_photos/${folder}/${timestamp}.jpg`;
         const storageRef = ref(storage, filename);
 
         canvas.toBlob((blob) => {
