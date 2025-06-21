@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mooky Capture</title>
+  <title>Yoolookee Capture</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
@@ -59,9 +59,9 @@
 <body class="bg-gray-900 flex items-center justify-center min-h-screen p-2">
   <div class="text-center relative max-w-md md:max-w-lg w-full">
     <div class="flex items-center justify-center mb-1">
-      <img src="mooky_logo.png" alt="Mooky Logo Left" class="w-12 md:w-16 h-12 md:h-16 mr-2" />
-      <h1 class="text-5xl md:text-6xl text-purple-400 mooky-font mt-2 drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]">mooky</h1>
-      <img src="mooky_logo.png" alt="Mooky Logo Right" class="w-12 md:w-16 h-12 md:h-16 ml-2" />
+      <img src="mooky_logo.png" alt="Logo Left" class="w-12 md:w-16 h-12 md:h-16 mr-2" />
+      <h1 class="text-5xl md:text-6xl text-purple-400 mooky-font mt-2 drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]">yoolookee</h1>
+      <img src="mooky_logo.png" alt="Logo Right" class="w-12 md:w-16 h-12 md:h-16 ml-2" />
     </div>
     <p class="text-2xl md:text-3xl text-yellow-400 font-bold font-poppins drop-shadow-[0_0_6px_rgba(234,179,8,0.6)] mb-1">Daily Prizes</p>
     <div class="relative bg-black w-full max-w-md md:max-w-lg mx-auto" style="min-height: 24rem; padding: 0.5rem;">
@@ -78,8 +78,8 @@
         <div id="flashEffect" class="absolute inset-0 bg-white opacity-0"></div>
       </div>
     </div>
-    <p class="mt-2 text-lg md:text-xl text-pink-400 font-semibold font-poppins drop-shadow-[0_0_6px_rgba(244,114,182,0.6)]">Visit www.mooky.com.au to see if you’re a winner</p>
-    <button id="captureButton" class="mt-2 px-8 py-3 bg-purple-600 text-white text-lg md:text-xl font-poppins font-semibold rounded-full hover:bg-purple-700 transition transform hover:scale-105">Press to take a Mooky</button>
+    <p class="mt-2 text-lg md:text-xl text-pink-400 font-semibold font-poppins drop-shadow-[0_0_6px_rgba(244,114,182,0.6)]">Visit www.yoolookee.com.au to see if you’re a winner</p>
+    <button id="captureButton" class="mt-2 px-8 py-3 bg-purple-600 text-white text-lg md:text-xl font-poppins font-semibold rounded-full hover:bg-purple-700 transition transform hover:scale-105">Press to take a Yoolookee</button>
   </div>
 
   <script type="module">
@@ -133,19 +133,13 @@
     }
 
     function showSuccess() {
-      console.log('Showing success message at:', new Date().toISOString());
-      if (successText) {
-        successText.textContent = 'Successful Mooky!';
-        successText.classList.remove('hidden');
-        setTimeout(() => successText.classList.add('show'), 10);
-        setTimeout(() => {
-          console.log('Hiding success message at:', new Date().toISOString());
-          successText.classList.remove('show');
-          setTimeout(() => successText.classList.add('hidden'), 300);
-        }, 2000);
-      } else {
-        console.error('successText element not found.');
-      }
+      successText.textContent = 'Successful Yoolookee!';
+      successText.classList.remove('hidden');
+      setTimeout(() => successText.classList.add('show'), 10);
+      setTimeout(() => {
+        successText.classList.remove('show');
+        setTimeout(() => successText.classList.add('hidden'), 300);
+      }, 2000);
     }
 
     function captureImage() {
@@ -160,7 +154,6 @@
       canvas.toBlob((blob) => {
         const storageRef = ref(storage, 'mooky_photos/' + new Date().toISOString() + '.jpg');
         uploadBytes(storageRef, blob).then(() => {
-          console.log('Upload successful');
           showSuccess();
         }).catch((error) => {
           console.error('Upload failed', error);
