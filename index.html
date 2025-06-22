@@ -31,10 +31,16 @@
       66% { border-color: blue; }
       100% { border-color: purple; }
     }
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
     .pulse { animation: pulse 2s infinite; }
     .flash { animation: flash 0.3s ease-in-out; }
     .count-pulse { animation: countPulse 1s ease-in-out; }
     .border-loop { animation: borderLoop 6s infinite; }
+    .animate-fade-slide-up { animation: fadeSlideUp 1s ease-out forwards; }
+
     .yoolookee-font { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
     .success-text {
       position: absolute;
@@ -91,17 +97,19 @@
     </div>
   </div>
 
-  <!-- Bottom Half: Sponsor and Winners -->
-  <div class="flex-1 flex flex-col w-full max-w-md mx-auto mt-2 space-y-2">
-    <div class="sponsor-section bg-gray-100 p-2 rounded-lg text-center">
-      <h2 class="text-2xl text-purple-400 yoolookee-font mb-2">Sponsor</h2>
-      <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
-    </div>
-    <div class="winner-section bg-gray-100 p-2 rounded-lg text-center">
-      <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Today's free coffee winners</h2>
-      <div class="flex justify-between space-x-2">
-        <img src="static/winner.png" alt="Winner 1" />
-        <img src="static/winner_2.png" alt="Winner 2" />
+  <!-- Bottom Half: Sponsor and Winners side-by-side -->
+  <div class="flex-1 flex flex-col w-full max-w-md mx-auto mt-2 animate-fade-slide-up">
+    <div class="flex flex-row gap-2">
+      <div class="sponsor-section flex-1 bg-gray-100 p-2 rounded-lg text-center">
+        <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Sponsor</h2>
+        <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
+      </div>
+      <div class="winner-section flex-1 bg-gray-100 p-2 rounded-lg text-center">
+        <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Today's free coffee winners</h2>
+        <div class="flex justify-between space-x-2">
+          <img src="static/winner.png" alt="Winner 1" />
+          <img src="static/winner_2.png" alt="Winner 2" />
+        </div>
       </div>
     </div>
   </div>
