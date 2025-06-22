@@ -99,84 +99,97 @@
     }
     
     /* Main layout adjustments */
-    .mobile-layout {
+    body {
       min-height: 100vh;
       padding: 0.5rem;
     }
     
-    /* Responsive adjustments */
-    @media (max-width: 767px) {
-      .mobile-layout .coffee-font {
-        font-size: 2.5rem;
-        margin-top: 0.5rem;
-        margin-bottom: 0.25rem;
-      }
-      .mobile-layout .coffee-subtext {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-      .mobile-layout .video-container {
-        min-height: 0;
-        height: 55vw;
-        max-height: 50vh;
-        padding: 0.25rem;
-      }
-      .mobile-layout .video-frame {
-        width: 85vw;
-        height: 85vw;
-        max-width: 85vw;
-        max-height: 85vw;
-      }
-      .mobile-layout #captureButton {
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
-        margin-top: 0.75rem;
-        margin-bottom: 0.5rem;
-      }
-      .mobile-layout .winner-section {
-        padding: 1rem;
-        margin-top: 0.5rem;
-      }
-      .mobile-layout .winner-section h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-      }
-      .mobile-layout .winner-images img {
-        height: 25vw;
-        max-height: 120px;
-      }
-      .mobile-layout .agreement-text {
-        font-size: 0.7rem;
-        margin-bottom: 0.5rem;
-      }
-      .mobile-layout .success-text {
-        font-size: 1.1rem;
-      }
-      .mobile-layout #countdown {
-        font-size: 4rem;
-      }
+    .compact-layout .top-section {
+      flex: 1;
+      max-height: 65vh;
+    }
+    
+    .compact-layout .camera-container {
+      height: 55vw;
+      max-height: 50vh;
+    }
+    
+    .compact-layout .camera-frame {
+      width: 90%;
+      max-width: 400px;
+      height: 90%;
+      max-height: 400px;
+    }
+    
+    .compact-layout .winner-section {
+      padding: 0.75rem;
+    }
+    
+    .compact-layout .winner-images {
+      height: 120px;
+    }
+    
+    .compact-layout .winner-images img {
+      height: 100%;
+      max-height: 120px;
+    }
+    
+    .compact-layout .coffee-font {
+      font-size: 2.25rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+    
+    .compact-layout .coffee-subtext {
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .compact-layout #captureButton {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .compact-layout .agreement-text {
+      font-size: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .compact-layout .success-text {
+      font-size: 1.1rem;
+    }
+    
+    .compact-layout #countdown {
+      font-size: 4rem;
     }
     
     @media (min-width: 768px) {
-      .video-container {
+      .camera-container {
         min-height: 24rem;
       }
-      .video-frame {
+      
+      .camera-frame {
         width: 24rem;
         height: 24rem;
+      }
+      
+      .winner-images img {
+        height: 160px;
       }
     }
   </style>
 </head>
-<body class="bg-white flex flex-col min-h-screen p-4 mobile-layout">
+<body class="bg-white flex flex-col min-h-screen p-2 compact-layout">
   <!-- Top Section -->
-  <div class="flex-[3] flex flex-col items-center justify-center">
+  <div class="top-section flex flex-col items-center justify-center">
     <div class="text-center relative w-full max-w-md mx-auto">
       <h1 class="text-5xl coffee-font">COFFEE SHOT</h1>
       <p class="text-2xl font-bold font-poppins coffee-subtext">Win a free coffee</p>
-      <div class="relative bg-black w-full max-w-md mx-auto video-container">
-        <div class="relative video-frame bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
-          <img id="sponsorImage" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=500&auto=format&fit=crop" alt="Sponsor Logo" />
+      <div class="relative bg-black w-full max-w-md mx-auto camera-container" style="padding: 0.25rem;">
+        <div class="relative camera-frame bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
+          <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
           <video id="videoFeed" class="absolute inset-0 w-full h-full object-cover hidden" autoplay playsinline></video>
           <canvas id="canvas" class="absolute inset-0 w-full h-full hidden"></canvas>
           <div id="placeholder" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-gray-800 hidden">
@@ -190,22 +203,24 @@
         </div>
       </div>
 
-      <!-- Blinking Button -->
-      <button id="captureButton" class="blink px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
-        Look at Jess, smile & press!
-      </button>
+      <!-- Blinking Button - Now positioned absolutely to ensure visibility -->
+      <div class="relative mt-1 mb-2">
+        <button id="captureButton" class="blink px-6 py-2 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
+          Look at Jess, smile & press!
+        </button>
+      </div>
 
       <p class="text-xs text-gray-500 agreement-text">(you agree to your image being displayed as a WINNER!)</p>
     </div>
   </div>
 
   <!-- Bottom Section -->
-  <div class="flex-[2] flex flex-col w-full max-w-md mx-auto animate-fade-slide-up">
+  <div class="flex flex-col w-full max-w-md mx-auto mt-1 animate-fade-slide-up">
     <div class="winner-section bg-[#F5F5DC] rounded-lg text-center flex flex-col justify-center">
       <h2 class="text-2xl coffee-font mb-2">Today's free coffee winners</h2>
       <div class="flex justify-between space-x-4 winner-images">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" alt="Winner 1" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" alt="Winner 2" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
+        <img src="static/winner.png" alt="Winner 1" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
+        <img src="static/winner_2.png" alt="Winner 2" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
       </div>
     </div>
   </div>
