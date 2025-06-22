@@ -98,81 +98,123 @@
       z-index: 1;
     }
     
-    /* Main layout adjustments */
+    /* Main layout */
     body {
       min-height: 100vh;
       padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to bottom, #3a2619, #6F4E37);
     }
     
-    .compact-layout .top-section {
-      flex: 1;
-      max-height: 65vh;
+    /* Top section */
+    .header-section {
+      flex-shrink: 0;
+      padding: 0.5rem 0;
     }
     
-    .compact-layout .camera-container {
-      height: 55vw;
-      max-height: 50vh;
+    /* Camera section */
+    .camera-section {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0.5rem 0;
     }
     
-    .compact-layout .camera-frame {
-      width: 90%;
-      max-width: 400px;
-      height: 90%;
-      max-height: 400px;
+    .camera-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
     }
     
-    .compact-layout .winner-section {
-      padding: 0.75rem;
+    .camera-frame {
+      width: 100%;
+      padding-bottom: 130%; /* Tall aspect ratio */
+      position: relative;
+      overflow: hidden;
+      background: black;
+      border: 4px solid #6F4E37;
+      border-radius: 12px;
+      animation: borderLoop 6s infinite;
     }
     
-    .compact-layout .winner-images {
-      height: 120px;
-    }
-    
-    .compact-layout .winner-images img {
+    .camera-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      max-height: 120px;
     }
     
-    .compact-layout .coffee-font {
-      font-size: 2.25rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0;
+    /* Button section */
+    .button-section {
+      flex-shrink: 0;
+      padding: 1.5rem 0;
+      text-align: center;
     }
     
-    .compact-layout .coffee-subtext {
-      font-size: 1.15rem;
-      margin-bottom: 0.25rem;
+    /* Winners section */
+    .winners-section {
+      flex-shrink: 0;
+      background: #F5F5DC;
+      border-radius: 12px;
+      padding: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
     }
     
-    .compact-layout #captureButton {
-      padding: 0.5rem 1.25rem;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      margin-bottom: 0.25rem;
-    }
-    
-    .compact-layout .agreement-text {
-      font-size: 0.7rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .compact-layout .success-text {
-      font-size: 1.1rem;
-    }
-    
-    .compact-layout #countdown {
-      font-size: 4rem;
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+      .mobile-adjust .coffee-font {
+        font-size: 2.25rem;
+        margin: 0.25rem 0;
+      }
+      
+      .mobile-adjust .coffee-subtext {
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .mobile-adjust .camera-frame {
+        padding-bottom: 140%; /* Even taller on mobile */
+      }
+      
+      .mobile-adjust .button-section {
+        padding: 1rem 0 0.5rem;
+      }
+      
+      .mobile-adjust #captureButton {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+      
+      .mobile-adjust .agreement-text {
+        font-size: 0.7rem;
+      }
+      
+      .mobile-adjust .winner-images {
+        height: 120px;
+      }
+      
+      .mobile-adjust .winner-images img {
+        height: 100%;
+        max-height: 120px;
+      }
+      
+      .mobile-adjust .success-text {
+        font-size: 1.1rem;
+      }
+      
+      .mobile-adjust #countdown {
+        font-size: 4rem;
+      }
     }
     
     @media (min-width: 768px) {
-      .camera-container {
-        min-height: 24rem;
-      }
-      
       .camera-frame {
-        width: 24rem;
-        height: 24rem;
+        padding-bottom: 120%;
       }
       
       .winner-images img {
@@ -181,14 +223,27 @@
     }
   </style>
 </head>
-<body class="bg-white flex flex-col min-h-screen p-2 compact-layout">
-  <!-- Top Section -->
-  <div class="top-section flex flex-col items-center justify-center">
-    <div class="text-center relative w-full max-w-md mx-auto">
-      <h1 class="text-5xl coffee-font">COFFEE SHOT</h1>
-      <p class="text-2xl font-bold font-poppins coffee-subtext">Win a free coffee</p>
-      <div class="relative bg-black w-full max-w-md mx-auto camera-container" style="padding: 0.25rem;">
-        <div class="relative camera-frame bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
+<body class="mobile-adjust">
+  <!-- Header Section -->
+  <div class="header-section text-center">
+    <h1 class="text-5xl coffee-font">COFFEE SHOT</h1>
+    <p class="text-2xl font-bold font-poppins coffee-subtext">Win a free coffee</p>
+  </div>
+  
+  <!-- Winners Section - Moved up -->
+  <div class="winners-section animate-fade-slide-up">
+    <h2 class="text-2xl coffee-font mb-3">Today's free coffee winners</h2>
+    <div class="flex justify-between space-x-4 winner-images">
+      <img src="static/winner.png" alt="Winner 1" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
+      <img src="static/winner_2.png" alt="Winner 2" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
+    </div>
+  </div>
+  
+  <!-- Camera Section -->
+  <div class="camera-section">
+    <div class="camera-container">
+      <div class="camera-frame">
+        <div class="camera-content">
           <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
           <video id="videoFeed" class="absolute inset-0 w-full h-full object-cover hidden" autoplay playsinline></video>
           <canvas id="canvas" class="absolute inset-0 w-full h-full hidden"></canvas>
@@ -202,27 +257,15 @@
           <div id="flashEffect" class="absolute inset-0 bg-white opacity-0 z-30"></div>
         </div>
       </div>
-
-      <!-- Blinking Button - Now positioned absolutely to ensure visibility -->
-      <div class="relative mt-1 mb-2">
-        <button id="captureButton" class="blink px-6 py-2 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
-          Look at Jess, smile & press!
-        </button>
-      </div>
-
-      <p class="text-xs text-gray-500 agreement-text">(you agree to your image being displayed as a WINNER!)</p>
     </div>
   </div>
-
-  <!-- Bottom Section -->
-  <div class="flex flex-col w-full max-w-md mx-auto mt-1 animate-fade-slide-up">
-    <div class="winner-section bg-[#F5F5DC] rounded-lg text-center flex flex-col justify-center">
-      <h2 class="text-2xl coffee-font mb-2">Today's free coffee winners</h2>
-      <div class="flex justify-between space-x-4 winner-images">
-        <img src="static/winner.png" alt="Winner 1" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
-        <img src="static/winner_2.png" alt="Winner 2" class="w-1/2 object-cover rounded border-2 border-[#6F4E37]" />
-      </div>
-    </div>
+  
+  <!-- Button Section - Moved down -->
+  <div class="button-section">
+    <button id="captureButton" class="blink px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
+      Look at Jess, smile & press!
+    </button>
+    <p class="mt-2 text-xs text-gray-300 agreement-text">(you agree to your image being displayed as a WINNER!)</p>
   </div>
 
   <!-- Firebase and Capture Script -->
