@@ -112,7 +112,6 @@
       <div class="sponsor-section">
         <h2 class="text-2xl text-purple-400 yoolookee-font mb-2">Sponsor</h2>
         <img id="sponsorImage" src="melooky/sponsor_1.png" alt="Sponsor Logo" />
-        <input type="file" id="sponsorUpload" accept="image/*" class="mt-2 text-white" />
       </div>
     </div>
   </div>
@@ -141,7 +140,6 @@
     const countdown = document.getElementById('countdown');
     const flashEffect = document.getElementById('flashEffect');
     const successText = document.getElementById('successText');
-    const sponsorUpload = document.getElementById('sponsorImage');
     const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
     let stream = null;
 
@@ -230,18 +228,6 @@
           captureButton.classList.remove('opacity-50');
         }, 3000);
       }, 2000);
-    });
-
-    // Sponsor Image Upload
-    sponsorUpload.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          sponsorImage.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
     });
 
     window.addEventListener('unload', stopCamera);
