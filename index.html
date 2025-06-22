@@ -74,8 +74,9 @@
             <svg class="w-40 h-40 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14.5c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.33 0-6 1.34-6 3v1h12v-1c0-1.66-2.67-3-6-3z" />
             </svg>
-            <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" class="h-24 object-contain mt-4" />
           </div>
+          <!-- Sponsor logo positioned inside the capture area -->
+          <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" class="absolute bottom-4 right-4 h-16 object-contain" />
           <div id="countdown" class="absolute inset-0 flex items-center justify-center text-8xl text-yellow-400 font-bold font-poppins drop-shadow-[0_0_10px_rgba(234,179,8,0.8)] hidden"></div>
           <div id="successText" class="success-text hidden"></div>
           <div id="flashEffect" class="absolute inset-0 bg-white opacity-0"></div>
@@ -135,10 +136,14 @@
         videoFeed.classList.remove('hidden');
         placeholder.classList.add('hidden');
         canvas.classList.add('hidden');
+        // Show sponsor logo when camera starts
+        sponsorImage.classList.remove('hidden');
       } catch (err) {
         console.error('Camera access denied:', err);
         videoFeed.classList.add('hidden');
         placeholder.classList.remove('hidden');
+        // Show sponsor logo even if camera fails
+        sponsorImage.classList.remove('hidden');
       }
     }
 
@@ -159,8 +164,9 @@
           successText.classList.add('hidden');
           if (!stream) {
             placeholder.classList.remove('hidden');
-            sponsorImage.classList.remove('hidden');
           }
+          // Show the sponsor logo again after success message
+          sponsorImage.classList.remove('hidden');
         }, 300);
       }, 2000);
     }
@@ -188,6 +194,7 @@
       if (!stream) await startCamera();
       captureButton.disabled = true;
       captureButton.classList.add('opacity-50');
+      // Hide the sponsor logo when button is pressed
       sponsorImage.classList.add('hidden');
       countdown.classList.remove('hidden');
       countdown.innerText = '2';
@@ -211,6 +218,11 @@
           captureButton.classList.remove('opacity-50');
         }, 3000);
       }, 2000);
+    });
+
+    // Initialize - show sponsor logo when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      sponsorImage.classList.remove('hidden');
     });
 
     window.addEventListener('unload', stopCamera);
