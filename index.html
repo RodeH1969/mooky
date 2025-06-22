@@ -57,29 +57,17 @@
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
     }
-    .success-text.show {
-      opacity: 1;
-    }
-    .winner-section img {
-      width: 48%;
-      object-fit: cover;
-      border-radius: 0.5rem;
-    }
-    .sponsor-section img {
-      width: 100%;
-      object-fit: contain;
-      border-radius: 0.5rem;
-    }
+    .success-text.show { opacity: 1; }
   </style>
 </head>
 <body class="bg-white flex flex-col min-h-screen p-4">
-  <!-- Top Half: Header and Camera -->
-  <div class="flex-1 flex flex-col items-center justify-center">
+  <!-- Top Section -->
+  <div class="flex-[3] flex flex-col items-center justify-center">
     <div class="text-center relative w-full max-w-md mx-auto">
       <h1 class="text-5xl text-purple-400 yoolookee-font mt-2 drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]">yoolookee</h1>
       <p class="text-2xl text-yellow-400 font-bold font-poppins drop-shadow-[0_0_6px_rgba(234,179,8,0.6)] mb-1">Daily free coffee</p>
-      <div class="relative bg-black w-full max-w-md mx-auto" style="min-height: 20rem; padding: 0.5rem;">
-        <div class="relative w-80 h-80 bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
+      <div class="relative bg-black w-full max-w-md mx-auto" style="min-height: 24rem; padding: 0.5rem;">
+        <div class="relative w-96 h-96 bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
           <video id="videoFeed" class="w-full h-full object-cover" autoplay playsinline></video>
           <canvas id="canvas" class="w-full h-full hidden"></canvas>
           <div id="placeholder" class="w-full h-full flex items-center justify-center bg-gray-800">
@@ -97,24 +85,24 @@
     </div>
   </div>
 
-  <!-- Bottom Half: Sponsor and Winners side-by-side -->
-  <div class="flex-1 flex flex-col w-full max-w-md mx-auto mt-2 animate-fade-slide-up">
-    <div class="flex flex-row gap-2">
-      <div class="sponsor-section flex-1 bg-gray-100 p-2 rounded-lg text-center">
+  <!-- Bottom Section -->
+  <div class="flex-[2] flex flex-col w-full max-w-md mx-auto mt-4 animate-fade-slide-up">
+    <div class="flex flex-row gap-2 h-full">
+      <div class="sponsor-section flex-1 bg-gray-100 p-4 rounded-lg text-center flex flex-col justify-center">
         <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Sponsor</h2>
-        <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
+        <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" class="h-32 object-contain mx-auto" />
       </div>
-      <div class="winner-section flex-1 bg-gray-100 p-2 rounded-lg text-center">
+      <div class="winner-section flex-1 bg-gray-100 p-4 rounded-lg text-center flex flex-col justify-center">
         <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Today's free coffee winners</h2>
         <div class="flex justify-between space-x-2">
-          <img src="static/winner.png" alt="Winner 1" />
-          <img src="static/winner_2.png" alt="Winner 2" />
+          <img src="static/winner.png" alt="Winner 1" class="w-1/2 h-32 object-cover rounded" />
+          <img src="static/winner_2.png" alt="Winner 2" class="w-1/2 h-32 object-cover rounded" />
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Firebase & Capture Script -->
+  <!-- Firebase and Capture Script -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
     import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
