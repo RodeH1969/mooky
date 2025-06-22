@@ -144,6 +144,20 @@
       text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
     }
     
+    /* NEW: Button styling to match "Win a free coffee" */
+    #captureButton {
+      background-color: #FFD700; /* Same gold as "Win a free coffee" */
+      color: #6F4E37; /* Dark brown text for contrast */
+      font-weight: 700;
+      border: 2px solid #6F4E37;
+      box-shadow: 0 4px 10px rgba(111, 78, 55, 0.5);
+    }
+    
+    #captureButton:hover {
+      background-color: #E6C200; /* Slightly darker gold on hover */
+      transform: scale(1.05);
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 767px) {
       body {
@@ -238,7 +252,7 @@
     
     <!-- Button - Positioned below camera -->
     <div class="button-container">
-      <button id="captureButton" class="blink px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
+      <button id="captureButton" class="blink px-8 py-3 text-lg font-poppins font-semibold rounded-full transition">
         Look at Jess, smile & press!
       </button>
       <p class="mt-1 text-xs text-gray-300 agreement-text">(you agree to your image being displayed as a WINNER!)</p>
