@@ -1,16 +1,16 @@
 <?php
 /*
-Template Name: Zambrero Prize Page
+Template Name: Yoolookee Prize Page
 */
 get_header();
 ?>
 
-<div class="zambrero-container">
-    <h1 class="zambrero-title">Zambrero's Quesadilla Prize</h1>
-    <p class="zambrero-subtitle">Celebrating Feel Good Mex with a Heart</p>
+<div class="yoolookee-container">
+    <h1 class="yoolookee-title">Yoolookee's Quesadilla Prize</h1>
+    <p class="yoolookee-subtitle">Celebrating Flavor with a Purpose</p>
     <div class="prize-content">
-        <p>Zambrero is thrilled to donate a delicious quesadilla as a winning prize! Join us in spreading joy and flavor while supporting our Plate 4 Plate initiative, where every burrito or bowl purchased donates a meal to someone in need.</p>
-        <a href="https://zambrero.com.au" target="_blank" class="zambrero-button">Learn More</a>
+        <p>Yoolookee is excited to donate a delicious quesadilla as a winning prize! Join us in spreading joy and flavor through this special giveaway, bringing smiles one bite at a time.</p>
+        <a href="https://yoolookee.com.au" target="_blank" class="yoolookee-button">Learn More</a>
     </div>
 </div>
 
@@ -27,14 +27,14 @@ body {
     color: #ffffff;
 }
 
-.zambrero-container {
+.yoolookee-container {
     text-align: center;
     padding: 40px 20px;
     max-width: 800px;
     margin: 0 auto;
 }
 
-.zambrero-title {
+.yoolookee-title {
     font-size: 48px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -43,7 +43,7 @@ body {
     letter-spacing: 2px;
 }
 
-.zambrero-subtitle {
+.yoolookee-subtitle {
     font-size: 24px;
     font-weight: 400;
     margin-bottom: 30px;
@@ -60,7 +60,7 @@ body {
     margin-bottom: 30px;
 }
 
-.zambrero-button {
+.yoolookee-button {
     display: inline-block;
     padding: 12px 24px;
     background-color: #e84c3d;
@@ -72,17 +72,17 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.zambrero-button:hover {
+.yoolookee-button:hover {
     background-color: #c0392b;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-    .zambrero-title {
+    .yoolookee-title {
         font-size: 36px;
     }
 
-    .zambrero-subtitle {
+    .yoolookee-subtitle {
         font-size: 20px;
     }
 

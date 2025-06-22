@@ -1,0 +1,14 @@
+{
+  "static": [
+    {
+      "glob": "**/*",
+      "path": "melooky",
+      "root": "/"
+    }
+  ],
+  "headers": {
+    "/": {
+      "Cache-Control": "no-cache, no-store, must-revalidate"
+    }
+  }
+}
