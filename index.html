@@ -125,7 +125,7 @@
 
       function stopCamera() {
         if (stream) {
-          stream.getTracks().forEach(track => track.stop());
+          stream.getTracks().for(track => track.stop());
           stream = null;
         }
       }
