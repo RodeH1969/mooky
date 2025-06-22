@@ -66,7 +66,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
       font-size: 2rem;
       font-weight: bold;
       color: #FFF8E7;
@@ -97,9 +96,10 @@
   <div class="flex-[3] flex flex-col items-center justify-center">
     <div class="text-center relative w-full max-w-md mx-auto">
       <h1 class="text-5xl coffee-font mt-2">COFFEE SHOT</h1>
-      <p class="text-2xl font-bold font-poppins coffee-subtext mb-1">Daily free coffee</p>
+      <p class="text-2xl font-bold font-poppins coffee-subtext mb-1">Win a free coffee</p>
       <div class="relative bg-black w-full max-w-md mx-auto" style="min-height: 24rem; padding: 0.5rem;">
         <div class="relative w-96 h-96 bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
+          <!-- Sponsor logo takes full area initially -->
           <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
           <video id="videoFeed" class="absolute inset-0 w-full h-full object-cover hidden" autoplay playsinline></video>
           <canvas id="canvas" class="absolute inset-0 w-full h-full hidden"></canvas>
@@ -113,10 +113,7 @@
           <div id="flashEffect" class="absolute inset-0 bg-white opacity-0 z-30"></div>
         </div>
       </div>
-      <!-- ✅ Updated button text -->
-      <button id="captureButton" class="mt-2 px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
-        look at Olivia and press this to win!
-      </button>
+      <button id="captureButton" class="mt-2 px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">Press to win</button>
       <p class="mt-1 text-xs text-gray-500">(you agree to your image being displayed as a WINNER!)</p>
     </div>
   </div>
@@ -164,7 +161,11 @@
     async function startCamera() {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+          video: { 
+            facingMode: 'user', 
+            width: { ideal: 1280 }, 
+            height: { ideal: 720 } 
+          }
         });
         videoFeed.srcObject = stream;
         videoFeed.classList.remove('hidden');
@@ -187,7 +188,7 @@
     }
 
     function showSuccess() {
-      successText.innerHTML = 'Great shot!<br>Come back tomorrow to see if you won!';
+      successText.textContent = 'Success! Come back tomorrow to see if you won!';
       successText.classList.remove('hidden');
       setTimeout(() => successText.classList.add('show'), 10);
       setTimeout(() => {
@@ -205,13 +206,20 @@
     }
 
     function captureImage() {
+      // Keep original dimensions (no rotation)
       canvas.width = videoFeed.videoWidth;
       canvas.height = videoFeed.videoHeight;
+      
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Simply draw the image as-is (portrait)
       ctx.drawImage(videoFeed, 0, 0, canvas.width, canvas.height);
+      
       flashEffect.classList.add('flash');
+      
+      // Convert to blob and upload
       canvas.toBlob((blob) => {
         const storageRef = ref(storage, 'coffee_shot_photos/' + new Date().toISOString() + '.jpg');
         uploadBytes(storageRef, blob).then(() => {
@@ -251,6 +259,7 @@
       }, 2000);
     });
 
+    // Initialize - show sponsor logo when page loads
     document.addEventListener('DOMContentLoaded', () => {
       sponsorImage.classList.remove('hidden');
     });
