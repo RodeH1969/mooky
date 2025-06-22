@@ -54,45 +54,26 @@
     .success-text.show {
       opacity: 1;
     }
-    .right-section {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .winner-section, .sponsor-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: #f9fafb;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      margin: 0.5rem;
-    }
     .winner-section img {
       width: 48%;
-      height: 100%;
       object-fit: cover;
       border-radius: 0.5rem;
-      margin: 0 1%;
     }
     .sponsor-section img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 0.5rem;
     }
   </style>
 </head>
-<body class="bg-white flex min-h-screen p-4">
-  <!-- Left Half: Camera Section -->
-  <div class="w-1/2 pr-2 flex items-center justify-center">
-    <div class="text-center relative w-full max-w-md">
+<body class="bg-white flex flex-col min-h-screen p-4">
+  <!-- Top Half: Header and Camera -->
+  <div class="flex-1 flex flex-col items-center justify-center">
+    <div class="text-center relative w-full max-w-md mx-auto">
       <h1 class="text-5xl text-purple-400 yoolookee-font mt-2 drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]">yoolookee</h1>
       <p class="text-2xl text-yellow-400 font-bold font-poppins drop-shadow-[0_0_6px_rgba(234,179,8,0.6)] mb-1">Daily free coffee</p>
       <div class="relative bg-black w-full max-w-md mx-auto" style="min-height: 20rem; padding: 0.5rem;">
-        <div class="relative w-80 h-80 bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto" style="animation: borderLoop 6s infinite;">
+        <div class="relative w-80 h-80 bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
           <video id="videoFeed" class="w-full h-full object-cover" autoplay playsinline></video>
           <canvas id="canvas" class="w-full h-full hidden"></canvas>
           <div id="placeholder" class="w-full h-full flex items-center justify-center bg-gray-800">
@@ -109,23 +90,23 @@
       <p class="mt-1 text-xs text-gray-500">(you agree to your image being displayed as a WINNER!)</p>
     </div>
   </div>
-  <!-- Right Half: Winner and Sponsor Section -->
-  <div class="w-1/2 pl-2 flex items-center justify-center">
-    <div class="right-section w-full max-w-md">
-      <div class="winner-section">
-        <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Today's free coffee winners</h2>
-        <div class="flex justify-between w-full">
-          <img src="static/winner.png" alt="Winner 1" />
-          <img src="static/winner_2.png" alt="Winner 2" />
-        </div>
-      </div>
-      <div class="sponsor-section">
-        <h2 class="text-2xl text-purple-400 yoolookee-font mb-2">Sponsor</h2>
-        <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
+
+  <!-- Bottom Half: Sponsor and Winners -->
+  <div class="flex-1 flex flex-col w-full max-w-md mx-auto mt-2 space-y-2">
+    <div class="sponsor-section bg-gray-100 p-2 rounded-lg text-center">
+      <h2 class="text-2xl text-purple-400 yoolookee-font mb-2">Sponsor</h2>
+      <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
+    </div>
+    <div class="winner-section bg-gray-100 p-2 rounded-lg text-center">
+      <h2 class="text-xl text-purple-400 yoolookee-font mb-2">Today's free coffee winners</h2>
+      <div class="flex justify-between space-x-2">
+        <img src="static/winner.png" alt="Winner 1" />
+        <img src="static/winner_2.png" alt="Winner 2" />
       </div>
     </div>
   </div>
 
+  <!-- Firebase & Capture Script -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
     import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
@@ -177,19 +158,13 @@
     }
 
     function showSuccess() {
-      console.log('Showing success message at:', new Date().toISOString());
-      if (successText) {
-        successText.textContent = 'Success! Come back tomorrow to see if you won!';
-        successText.classList.remove('hidden');
-        setTimeout(() => successText.classList.add('show'), 10);
-        setTimeout(() => {
-          console.log('Hiding success message at:', new Date().toISOString());
-          successText.classList.remove('show');
-          setTimeout(() => successText.classList.add('hidden'), 300);
-        }, 2000);
-      } else {
-        console.error('successText element not found.');
-      }
+      successText.textContent = 'Success! Come back tomorrow to see if you won!';
+      successText.classList.remove('hidden');
+      setTimeout(() => successText.classList.add('show'), 10);
+      setTimeout(() => {
+        successText.classList.remove('show');
+        setTimeout(() => successText.classList.add('hidden'), 300);
+      }, 2000);
     }
 
     function captureImage() {
@@ -204,7 +179,6 @@
       canvas.toBlob((blob) => {
         const storageRef = ref(storage, 'yoolookee_photos/' + new Date().toISOString() + '.jpg');
         uploadBytes(storageRef, blob).then(() => {
-          console.log('Upload successful');
           showSuccess();
         }).catch((error) => {
           console.error('Upload failed', error);
