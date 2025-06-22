@@ -34,11 +34,17 @@
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
     .pulse { animation: pulse 2s infinite; }
     .flash { animation: flash 0.3s ease-in-out; }
     .count-pulse { animation: countPulse 1s ease-in-out; }
     .border-loop { animation: borderLoop 6s infinite; }
     .animate-fade-slide-up { animation: fadeSlideUp 1s ease-out forwards; }
+    .blink { animation: blink 1s infinite; }
 
     .coffee-font { 
       font-family: 'Orbitron', sans-serif; 
@@ -66,6 +72,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
       font-size: 2rem;
       font-weight: bold;
       color: #FFF8E7;
@@ -99,7 +106,6 @@
       <p class="text-2xl font-bold font-poppins coffee-subtext mb-1">Win a free coffee</p>
       <div class="relative bg-black w-full max-w-md mx-auto" style="min-height: 24rem; padding: 0.5rem;">
         <div class="relative w-96 h-96 bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto">
-          <!-- Sponsor logo takes full area initially -->
           <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
           <video id="videoFeed" class="absolute inset-0 w-full h-full object-cover hidden" autoplay playsinline></video>
           <canvas id="canvas" class="absolute inset-0 w-full h-full hidden"></canvas>
@@ -113,7 +119,12 @@
           <div id="flashEffect" class="absolute inset-0 bg-white opacity-0 z-30"></div>
         </div>
       </div>
-      <button id="captureButton" class="mt-2 px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">Press to win</button>
+
+      <!-- Blinking Button -->
+      <button id="captureButton" class="blink mt-2 px-8 py-3 bg-[#6F4E37] text-[#FFF8E7] text-lg font-poppins font-semibold rounded-full hover:bg-[#5A3E2D] transition transform hover:scale-105">
+        Look at Olivia, smile & press!
+      </button>
+
       <p class="mt-1 text-xs text-gray-500">(you agree to your image being displayed as a WINNER!)</p>
     </div>
   </div>
@@ -161,11 +172,7 @@
     async function startCamera() {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: { 
-            facingMode: 'user', 
-            width: { ideal: 1280 }, 
-            height: { ideal: 720 } 
-          }
+          video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
         });
         videoFeed.srcObject = stream;
         videoFeed.classList.remove('hidden');
@@ -188,7 +195,7 @@
     }
 
     function showSuccess() {
-      successText.textContent = 'Success! Come back tomorrow to see if you won!';
+      successText.innerHTML = 'Great shot!<br>Come back to tomorrow to see if you won!';
       successText.classList.remove('hidden');
       setTimeout(() => successText.classList.add('show'), 10);
       setTimeout(() => {
@@ -206,20 +213,13 @@
     }
 
     function captureImage() {
-      // Keep original dimensions (no rotation)
       canvas.width = videoFeed.videoWidth;
       canvas.height = videoFeed.videoHeight;
-      
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Simply draw the image as-is (portrait)
       ctx.drawImage(videoFeed, 0, 0, canvas.width, canvas.height);
-      
       flashEffect.classList.add('flash');
-      
-      // Convert to blob and upload
       canvas.toBlob((blob) => {
         const storageRef = ref(storage, 'coffee_shot_photos/' + new Date().toISOString() + '.jpg');
         uploadBytes(storageRef, blob).then(() => {
@@ -259,7 +259,6 @@
       }, 2000);
     });
 
-    // Initialize - show sponsor logo when page loads
     document.addEventListener('DOMContentLoaded', () => {
       sponsorImage.classList.remove('hidden');
     });
