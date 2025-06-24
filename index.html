@@ -144,6 +144,10 @@
       margin-top: auto;
     }
     
+    .winners-section h2 {
+      font-size: 1.5rem; /* Default size for desktop */
+    }
+    
     #countdown {
       font-size: 20vw;
       font-weight: 900;
@@ -205,6 +209,9 @@
       }
       .winners-section {
         margin-top: 0;
+      }
+      .winners-section h2 {
+        font-size: 0.9rem; /* Reduced for mobile to fit on one line */
       }
       #countdown {
         font-size: 30vw;
@@ -377,8 +384,10 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       sponsorImage.classList.remove('hidden');
-      // Debug viewport width
-      alert('Viewport width: ' + window.innerWidth);
+      // Debug viewport width (remove 'if' condition to enable)
+      // if (window.innerWidth > 1024) {
+      //   alert('Viewport width: ' + window.innerWidth);
+      // }
     });
 
     window.addEventListener('unload', stopCamera);
