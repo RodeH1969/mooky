@@ -6,6 +6,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#6F4E37">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Coffee Shot Capture</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -102,7 +105,6 @@
       z-index: 1;
     }
     
-    /* Main layout */
     body {
       background: #FFF8E7;
       min-height: 100vh;
@@ -119,7 +121,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      height: 100vh; /* Ensure full viewport height */
+      height: 100vh;
     }
     
     .camera-container {
@@ -161,7 +163,7 @@
       transform: scale(1.05);
     }
     
-    @media (max-width: 767px) {
+    @media (max-width: 1024px) {
       body {
         padding: 0.25rem;
       }
@@ -185,11 +187,11 @@
         margin: 0 auto;
       }
       .camera-container {
-        flex: none; /* Prevent stretching */
-        height: auto; /* Allow natural height */
+        flex: none;
+        height: auto;
       }
       .button-container {
-        margin: 0; /* Move button higher */
+        margin: 0;
       }
       #captureButton {
         padding: 0.75rem 1.5rem !important;
@@ -199,17 +201,17 @@
         font-size: 0.7rem;
       }
       .winner-images img {
-        height: 80px; /* Reduced to fit better */
+        height: 80px;
       }
       .winners-section {
-        margin-top: 0; /* Move winners section higher */
+        margin-top: 0;
       }
       #countdown {
         font-size: 30vw;
       }
     }
     
-    @media (min-width: 768px) {
+    @media (min-width: 1025px) {
       .camera-frame {
         width: 24rem;
         height: 24rem;
@@ -226,7 +228,7 @@
     <div class="camera-container">
       <div class="relative bg-black w-full mx-auto" style="padding: 0.25rem;">
         <div class="relative camera-frame bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto" style="width: 24rem; height: 24rem;">
-          <img id="sponsorImage" src="static/sponsor_1.png" alt="Sponsor Logo" />
+          <img id="sponsorImage" src="static/sponsor_2.png" alt="Sponsor Logo" />
           <video id="videoFeed" class="absolute inset-0 w-full h-full object-cover hidden" autoplay playsinline></video>
           <canvas id="canvas" class="absolute inset-0 w-full h-full hidden"></canvas>
           <div id="placeholder" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-gray-800 hidden">
@@ -375,15 +377,11 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       sponsorImage.classList.remove('hidden');
+      // Debug viewport width
+      alert('Viewport width: ' + window.innerWidth);
     });
 
     window.addEventListener('unload', stopCamera);
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
-      });
-    }
   </script>
 </body>
 </html>
