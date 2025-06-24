@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#6F4E37">
   <title>Coffee Shot Capture</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <link rel="manifest" href="/manifest.json">
   <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
   <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
   <style>
@@ -44,7 +48,7 @@
     .count-pulse { animation: countPulse 1s ease-in-out; }
     .border-loop { animation: borderLoop 6s infinite; }
     .animate-fade-slide-up { animation: fadeSlideUp 1s ease-out forwards; }
-    .blink { animation: blink 2s infinite; } /* Slowed down blink */
+    .blink { animation: blink 2s infinite; }
 
     .coffee-font { 
       font-family: 'Orbitron', sans-serif; 
@@ -115,6 +119,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      height: 100vh; /* Ensure full viewport height */
     }
     
     .camera-container {
@@ -122,7 +127,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      margin-top: 0; /* Move camera area higher */
+      margin-top: 0;
     }
     
     .button-container {
@@ -130,7 +135,6 @@
       text-align: center;
     }
     
-    /* Winners section */
     .winners-section {
       background: #F5F5DC;
       border-radius: 12px;
@@ -138,48 +142,41 @@
       margin-top: auto;
     }
     
-    /* Countdown styling - BIGGER! */
     #countdown {
       font-size: 20vw;
       font-weight: 900;
       text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
     }
     
-    /* NEW: Button styling to match "Win a free coffee" */
     #captureButton {
-      background-color: #FFD700; /* Same gold as "Win a free coffee" */
-      color: #6F4E37; /* Dark brown text for contrast */
+      background-color: #FFD700;
+      color: #6F4E37;
       font-weight: 700;
       border: 2px solid #6F4E37;
       box-shadow: 0 4px 10px rgba(111, 78, 55, 0.5);
     }
     
     #captureButton:hover {
-      background-color: #E6C200; /* Slightly darker gold on hover */
+      background-color: #E6C200;
       transform: scale(1.05);
     }
     
-    /* Responsive adjustments */
     @media (max-width: 767px) {
       body {
         padding: 0.25rem;
       }
-      
       .content-container {
         padding: 0;
       }
-      
       .header h1 {
         font-size: 2.5rem;
         margin-top: 0.5rem;
         margin-bottom: 0.25rem;
       }
-      
       .header p {
         font-size: 1.25rem;
         margin-bottom: 0.5rem;
       }
-      
       .camera-frame {
         width: 85vw !important;
         height: 85vw !important;
@@ -187,29 +184,26 @@
         max-height: 320px !important;
         margin: 0 auto;
       }
-      
-      .button-container {
-        margin: 0; /* Move button higher, directly below camera */
+      .camera-container {
+        flex: none; /* Prevent stretching */
+        height: auto; /* Allow natural height */
       }
-      
+      .button-container {
+        margin: 0; /* Move button higher */
+      }
       #captureButton {
         padding: 0.75rem 1.5rem !important;
         font-size: 1rem !important;
       }
-      
       .agreement-text {
         font-size: 0.7rem;
       }
-      
       .winner-images img {
-        height: 120px;
+        height: 80px; /* Reduced to fit better */
       }
-      
       .winners-section {
         margin-top: 0; /* Move winners section higher */
       }
-      
-      /* Big countdown on mobile */
       #countdown {
         font-size: 30vw;
       }
@@ -220,8 +214,6 @@
         width: 24rem;
         height: 24rem;
       }
-      
-      /* Big countdown on larger screens */
       #countdown {
         font-size: 15rem;
       }
@@ -230,11 +222,7 @@
 </head>
 <body>
   <div class="content-container">
-    <!-- Header -->
-    <div class="header text-center">
-    </div>
-    
-    <!-- Camera Area -->
+    <div class="header text-center"></div>
     <div class="camera-container">
       <div class="relative bg-black w-full mx-auto" style="padding: 0.25rem;">
         <div class="relative camera-frame bg-transparent border-4 border-loop rounded-lg overflow-hidden mx-auto" style="width: 24rem; height: 24rem;">
@@ -252,16 +240,12 @@
         </div>
       </div>
     </div>
-    
-    <!-- Button - Positioned below camera -->
     <div class="button-container">
       <button id="captureButton" class="blink px-8 py-3 text-lg font-poppins font-semibold rounded-full transition">
         Look at Jess, smile & press!
       </button>
       <p class="mt-1 text-xs text-gray-300 agreement-text">(you agree to your image being displayed as a WINNER!)</p>
     </div>
-    
-    <!-- Winners Section - Positioned below button -->
     <div class="winners-section animate-fade-slide-up">
       <h2 class="text-2xl coffee-font mb-3">Today's free coffee winners</h2>
       <div class="flex justify-between space-x-4 winner-images">
@@ -271,7 +255,6 @@
     </div>
   </div>
 
-  <!-- Firebase and Capture Script -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
     import { getStorage, ref, uploadBytes } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
@@ -395,6 +378,12 @@
     });
 
     window.addEventListener('unload', stopCamera);
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
   </script>
 </body>
 </html>

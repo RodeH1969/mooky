@@ -1,0 +1,8 @@
+{
+      "name": "Coffee Shot",
+      "short_name": "CoffeeShot",
+      "start_url": "/index.html",
+      "display": "standalone",
+      "background_color": "#3a2619",
+      "theme_color": "#6F4E37"
+    }
